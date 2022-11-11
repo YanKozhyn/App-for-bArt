@@ -15,6 +15,9 @@ namespace TestApp.Data
         public async Task CreateAsync(Account account, CancellationToken token = default)
         {
             await _context.Accounts.AddAsync(account, token);
+
+            
+
             if (account.Contacts.Any())
             {
                 foreach (var contact in account.Contacts)
