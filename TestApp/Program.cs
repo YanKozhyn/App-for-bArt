@@ -1,13 +1,14 @@
+using System.Text.Json.Serialization;
 using TestApp.Extensions;
+using TestApp.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
-//used extenstion method for connection string 
-builder.Services.AddDbConnection(builder.Configuration);
 
-builder.Services.AddControllers();
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddControllers().AddJsonOptions(jO =>
+    jO.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

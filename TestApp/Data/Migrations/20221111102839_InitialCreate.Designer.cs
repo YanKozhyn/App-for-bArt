@@ -12,7 +12,7 @@ using TestApp.Data;
 namespace TestApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221111000319_InitialCreate")]
+    [Migration("20221111102839_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

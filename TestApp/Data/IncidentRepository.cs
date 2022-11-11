@@ -21,7 +21,7 @@ namespace TestApp.Data
                 {
                     await _context.Accounts.AddAsync(item_acc, token);
 
-                    if (item.Contacts.Any())
+                    if (item_acc.Contacts.Any())
                     {
                         foreach (var item_cont in item_acc.Contacts)
                         {
