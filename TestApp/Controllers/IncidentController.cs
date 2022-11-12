@@ -14,7 +14,7 @@ namespace TestApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateOneAsync([FromBody] IncidentDto incident, CancellationToken token = default)
-            => Ok(await _incidentService.CreateOneAsync(incident, token));
+        public async Task<ActionResult> CreateOneAsync([FromBody] IncidentDto incident)
+            => Ok(await _incidentService.CreateOneAsync(incident));
     }
 }

@@ -15,7 +15,7 @@ namespace TestApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateAsync([FromBody] AccountDto account, CancellationToken token = default)
-            => Ok(await _accountService.CreateAsync(account, token));
+        public async Task<ActionResult> CreateAsync([FromBody] AccountDto account)
+            => Ok(await _accountService.CreateAsync(account));
     }
 }

@@ -7,14 +7,18 @@ namespace TestApp.Validation
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            DataContext _context = (DataContext) validationContext.GetService(typeof(DataContext))!;
-
-            if (_context.Contacts.FirstOrDefault(c => c.Email.ToLower() == value.ToString().ToLower()) is null)
+            if (value?.ToString() != null)
             {
-                return ValidationResult.Success;
-            }
+                DataContext _context = (DataContext)validationContext.GetService(typeof(DataContext))!;
 
-            return new ValidationResult(ErrorMessage ?? "Email already exist, pleas enter another email.");
+                if (_context.Contacts.FirstOrDefault(c => c.Email.ToLower() == value.ToString()!.ToLower()) is null)
+                {
+                    return ValidationResult.Success;
+                }
+                return new ValidationResult(ErrorMessage ?? "Email already exist, pleas enter another email.");
+            }
+            return new ValidationResult(ErrorMessage ?? "value is null");
+
         }
     }
 }
