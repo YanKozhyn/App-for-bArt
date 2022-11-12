@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TestApp.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class IntialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,8 +26,8 @@ namespace TestApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IncidentId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IncidentId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -48,7 +48,7 @@ namespace TestApp.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -65,12 +65,6 @@ namespace TestApp.Migrations
                 name: "IX_Accounts_IncidentId",
                 table: "Accounts",
                 column: "IncidentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Accounts_Name",
-                table: "Accounts",
-                column: "Name",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contacts_AccountId",

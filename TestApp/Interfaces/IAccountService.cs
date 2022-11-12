@@ -5,6 +5,6 @@ namespace TestApp.Interfaces
 {
     public interface IAccountService
     {
-        Task<Account> CreateAsync(AccountDto accountDto);
+        Task<Account> CreateAsync(AccountDto accountDto, CancellationToken token = default);
     }
 }

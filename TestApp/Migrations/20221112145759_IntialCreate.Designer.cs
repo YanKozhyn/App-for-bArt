@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestApp.Data;
 
@@ -11,9 +12,10 @@ using TestApp.Data;
 namespace TestApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221112145759_IntialCreate")]
+    partial class IntialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,35 +26,31 @@ namespace TestApp.Migrations
 
             modelBuilder.Entity("TestApp.Entities.Account", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("IncidentId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IncidentId");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("TestApp.Entities.Contact", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AccountId")
+                    b.Property<Guid?>("AccountId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
@@ -94,8 +92,7 @@ namespace TestApp.Migrations
                     b.HasOne("TestApp.Entities.Incident", "Incident")
                         .WithMany("Accounts")
                         .HasForeignKey("IncidentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Incident");
                 });
@@ -105,8 +102,7 @@ namespace TestApp.Migrations
                     b.HasOne("TestApp.Entities.Account", "Account")
                         .WithMany("Contacts")
                         .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Account");
                 });

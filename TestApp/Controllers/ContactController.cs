@@ -14,7 +14,7 @@ namespace TestApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] ContactDto contactDto)
-            => Ok(await _contactService.CreateAsync(contactDto));
+        public async Task<IActionResult> CreateAsync([FromBody] ContactDto contactDto, CancellationToken token = default)
+            => Ok(await _contactService.CreateAsync(contactDto, token));
     }
 }

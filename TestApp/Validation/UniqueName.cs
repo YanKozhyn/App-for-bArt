@@ -7,18 +7,15 @@ namespace TestApp.Validation
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            if (value?.ToString() != null) 
-            {
-                DataContext _context = (DataContext)validationContext.GetService(typeof(DataContext))!;
 
-                if (_context.Accounts.FirstOrDefault(acc => acc.Name.ToLower() == value.ToString()!.ToLower()) is null)
+                DataContext _context = (DataContext)validationContext.GetService(typeof(DataContext));
+
+                if (_context.Accounts.FirstOrDefault(acc => acc.Name.ToLower() == value.ToString().ToLower()) is null)
                 {   
                     return ValidationResult.Success;
                 }  
                 return new ValidationResult(ErrorMessage ?? "Name is exits in system, pleas enter another name");         
-            }
 
-            return new ValidationResult(ErrorMessage ?? "value is null");
 
             
         }

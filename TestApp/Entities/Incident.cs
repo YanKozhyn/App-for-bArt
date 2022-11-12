@@ -7,9 +7,8 @@ namespace TestApp.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Name { get; set; } = string.Empty;
-        [Required]
-        public string Description { get; set; } = string.Empty;
-        public ICollection<Account> Accounts { get; set; } = null!;
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public ICollection<Account> Accounts { get; set; } 
     }
 }

@@ -17,11 +17,11 @@ namespace TestApp.Services
             _mapper = mapper;
         }
 
-        public async Task<Contact> CreateAsync(ContactDto contactDto)
+        public async Task<Contact> CreateAsync(ContactDto contactDto, CancellationToken token = default)
         {
             Contact contact = _mapper.Map<Contact>(contactDto);
-            await _context.Contacts.AddAsync(contact);
-            await _context.SaveChangesAsync();
+            await _context.Contacts.AddAsync(contact, token);
+            await _context.SaveChangesAsync(token);
             return contact;
         }
     }

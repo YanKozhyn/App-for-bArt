@@ -12,6 +12,15 @@ namespace TestApp.Configuration
     {
         public void Configure(EntityTypeBuilder<Contact> builder)
         {
+            builder.Property(f => f.FirstName)
+                .IsRequired();
+
+            builder.Property(l => l.LastName)
+                .IsRequired();
+
+            builder.Property(e => e.Email)
+                .IsRequired();
+
             builder.HasOne(a => a.Account)
                 .WithMany(c => c.Contacts)
                 .HasForeignKey(a => a.AccountId)

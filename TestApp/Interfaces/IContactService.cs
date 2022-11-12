@@ -5,6 +5,6 @@ namespace TestApp.Interfaces
 {
     public interface IContactService
     {
-        Task<Contact> CreateAsync(ContactDto contactDto);
+        Task<Contact> CreateAsync(ContactDto contactDto, CancellationToken token = default);
     }
 }

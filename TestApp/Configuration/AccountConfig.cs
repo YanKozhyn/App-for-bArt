@@ -8,8 +8,8 @@ namespace TestApp.Configuration
     {
         public void Configure(EntityTypeBuilder<Account> builder)
         {
-            builder.HasIndex(u => u.Name)
-                .IsUnique();
+            builder.Property(f => f.Name)
+                .IsRequired();
             builder.HasMany(c => c.Contacts)
                 .WithOne(a => a.Account)
                 .HasForeignKey(a => a.AccountId)
