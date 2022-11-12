@@ -5,20 +5,17 @@ namespace TestApp.Validation
 {
     public class UniqueEmail : ValidationAttribute
     {
-        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+    {
+        DataContext _dbContext = (DataContext)validationContext.GetService(typeof(DataContext))!;
+
+        if (_dbContext.Contacts.FirstOrDefault(contact =>
+                contact.Email.ToUpper() == value.ToString().ToUpper()) is null)
         {
-            if (value?.ToString() != null)
-            {
-                DataContext _context = (DataContext)validationContext.GetService(typeof(DataContext))!;
-
-                if (_context.Contacts.FirstOrDefault(c => c.Email.ToLower() == value.ToString()!.ToLower()) is null)
-                {
-                    return ValidationResult.Success;
-                }
-                return new ValidationResult(ErrorMessage ?? "Email already exist, pleas enter another email.");
-            }
-            return new ValidationResult(ErrorMessage ?? "value is null");
-
+            return ValidationResult.Success;
         }
+
+        return new ValidationResult(ErrorMessage ?? "Email already exist");
+    }
     }
 }

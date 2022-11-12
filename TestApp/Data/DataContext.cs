@@ -10,9 +10,9 @@ namespace TestApp.Data
         {
         }
 
-        public DbSet<Incident> Incidents { get; set; } = null!;
-        public DbSet<Contact> Contacts { get; set; } = null!;
-        public DbSet<Account> Accounts { get; set; } = null!;
+        public DbSet<Incident> Incidents { get; set; } 
+        public DbSet<Contact> Contacts { get; set; } 
+        public DbSet<Account> Accounts { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -19,7 +19,8 @@ namespace TestApp.Services
 
         public async Task<Incident> CreateOneAsync(IncidentDto incidentDto, CancellationToken token = default)
         {
-            Incident incident = _mapper.Map<Incident>(incidentDto);        
+            Incident incident = _mapper.Map<Incident>(incidentDto);
+            await _context.Incidents.AddAsync(incident, token);        
             if (incident.Accounts.Any())
             {
                 foreach (var item_acc in incident.Accounts)

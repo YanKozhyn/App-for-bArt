@@ -19,7 +19,8 @@ namespace TestApp.Services
 
         public async Task<Account> CreateAsync(AccountDto accountDto, CancellationToken token = default)
         {
-            Account account = _mapper.Map<Account>(accountDto);                    
+            Account account = _mapper.Map<Account>(accountDto); 
+            await _context.Accounts.AddAsync(account, token);                   
             if (account.Contacts.Any())
             {
                 foreach (var contact in account.Contacts)
