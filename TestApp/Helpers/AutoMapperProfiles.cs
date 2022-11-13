@@ -8,6 +8,10 @@ namespace TestApp.Helpers
     {
         public AutoMapperProfiles()
         {
+            CreateMap<Account, CreateAccountDto>().ReverseMap();
+            CreateMap<Contact, CreateContactDto>().ReverseMap();
+            CreateMap<Incident, CreateIncidentDto>().ReverseMap();
+
             CreateMap<Account, AccountDto>().ReverseMap();
             CreateMap<Contact, ContactDto>().ReverseMap();
             CreateMap<Incident, IncidentDto>().ReverseMap();

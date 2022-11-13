@@ -5,6 +5,10 @@ namespace TestApp.Interfaces
 {
     public interface IIncidentService
     {
-        Task<Incident> CreateOneAsync(IncidentDto incidentDto, CancellationToken token = default);
+        Task<ICollection<Incident>> GetAllAsync(CancellationToken token = default);
+        Task<Incident> CreateOneAsync(CreateIncidentDto incidentDto, CancellationToken token = default);
+        Task<Incident?> GetByIdAsync(string id, CancellationToken token = default);
+        Task DeleteByIdAsync(string id, CancellationToken token = default);
+
     }
 }
