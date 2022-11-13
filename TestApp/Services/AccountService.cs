@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TestApp.Data;
 using TestApp.DTOs;
 using TestApp.Entities;
@@ -16,11 +17,10 @@ namespace TestApp.Services
             _context = context;
             _mapper = mapper;
         }
-
-        public async Task<Account> CreateAsync(AccountDto accountDto, CancellationToken token = default)
+        public async Task<Account> CreateAsync(CreateAccountDto accountDto, CancellationToken token = default)
         {
-            Account account = _mapper.Map<Account>(accountDto); 
-            await _context.Accounts.AddAsync(account, token);                   
+            Account account = _mapper.Map<Account>(accountDto);
+            await _context.Accounts.AddAsync(account, token);
             if (account.Contacts.Any())
             {
                 foreach (var contact in account.Contacts)
@@ -31,5 +31,11 @@ namespace TestApp.Services
             await _context.SaveChangesAsync(token);
             return account;
         }
+        public async Task<ICollection<Account>> GetAllAsync(CancellationToken token = default)
+            => await _context.Accounts.ToListAsync(token);
+        public async Task<Account?> GetByNameAsync(string name, CancellationToken token = default)
+            => await _context.Accounts.Include(c => c.Contacts)
+                        .SingleOrDefaultAsync(n => n.Name.ToLower() == name.ToLower(), token);
+
     }
 }

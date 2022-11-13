@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TestApp.Data;
 using TestApp.DTOs;
 using TestApp.Entities;
@@ -17,7 +18,7 @@ namespace TestApp.Services
             _mapper = mapper;
         }
 
-        public async Task<Incident> CreateOneAsync(IncidentDto incidentDto, CancellationToken token = default)
+        public async Task<Incident> CreateOneAsync(CreateIncidentDto incidentDto, CancellationToken token = default)
         {
             Incident incident = _mapper.Map<Incident>(incidentDto);
             await _context.Incidents.AddAsync(incident, token);        
@@ -40,5 +41,18 @@ namespace TestApp.Services
 
             return incident;
         }
+
+        public async Task<ICollection<Incident>> GetAllAsync(CancellationToken token = default)
+            => await _context.Incidents.ToListAsync(token);
+
+        public async Task<Incident> GetByIdAsync(string id, CancellationToken token = default)
+            => await _context.Incidents
+                                .Include(a => a.Accounts)
+                                .ThenInclude(c => c.Contacts)
+                                .SingleOrDefaultAsync(n => n.Name == id, token);
+
+        public async Task DeleteByIdAsync(string id, CancellationToken token = default)
+            => _context.Incidents.Remove(await GetByIdAsync(id));
+
     }
 }
